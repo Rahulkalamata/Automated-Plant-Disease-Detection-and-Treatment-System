@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plant Detection</title>
+  <!-- Slick Carousel CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Azeret Mono', monospace;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #3F7D58;
+      color: white;
+      padding: 20px 40px;
+      
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    
+    }
+    .predict-btn-container {
+  margin-top: 9px;
+  text-align: center;
+}
+
+.predict-btn {
+  display: inline-block;
+  background-color: #3F7D58;
+  color: white;
+  padding: 15px 30px;
+  font-size: 20px;
+  border: none;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.predict-btn:hover {
+  background-color: #326634;
+  cursor: pointer;
+}
+
+
+.full-screen-slider img{
+    width: 100%;
+     height: 600px; 
+     margin-top: 4px; 
+    padding: 0;
+    object-fit:cover
+}
+.slick-slider, .slick-slide {
+  height: 100%;
+}
+
+.slick-slider img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+.about {
+  width: 90%;
+  background-color: #c5f7b0;;
+  padding: 60px 40px;
+  border-radius: 0;
+  margin-left: 70px;
+  margin-top: 0px;
+}
+
+.about h2 {
+  text-align: center;
+  font-size: 32px;
+  color: #324d2b; 
+}
+
+.about-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+}
+.about-image img {
+  width: 400px;
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.about-text {
+  flex: 1;
+  min-width: 280px;
+  font-size: xx-large;
+}
+
+
+
+.about-text p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+}
+
+ marquee {
+      background-color: #c5f7b0;
+      padding: 10px 0;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .diseases {
+      background-color: #e9fbe4;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .diseases h2 {
+      font-size: 28px;
+      color: darkgreen;
+      margin-bottom: 30px;
+    }
+
+    .disease-slider {
+      width: 90%;
+      margin: auto;
+    }
+
+    .disease-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      padding: 30px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .disease-slide img {
+      width: 300px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .slide-text {
+      max-width: 600px;
+      text-align: left;
+    }
+
+    .slide-text h3 {
+      color: green;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .slide-text p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Make it responsive */
+    @media (max-width: 768px) {
+      .disease-slide {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .slide-text {
+        text-align: center;
+      }
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin-left: 30px;
+      position: relative;
+    }
+nav ul li a {
+  color: green;
+  background-color: lightyellow;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: #ffee88;
+  color: black;
+}
+
+    nav ul li:hover > ul {
+      display: block;
+    }
+
+    nav ul li ul {
+      display: none;
+      position: absolute;
+      top: 35px;
+      left: 0;
+      background: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    nav ul li ul li {
+      margin: 5px 0;
+    }
+
+    nav ul li ul li a {
+      color: #004a99;
+    }
+
+    .hero {
+      background: url('https://aec.edu.in/assets/img/bg.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 2px 2px 5px #000;
+      padding-top: 100px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    section {
+      padding: 80px 40px;
+      width: 100%;
+    }
+
+    .about, .diseases, .contact {
+      background: #f4f4f4;
+      margin-top: 20px;
+      background-color: rgb(153, 233, 153);
+      border-radius: 10px;
+      padding: 40px;
+    }
+    .contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.contact-form button {
+  background-color: #3b9f40;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: #1b5e20;
+}
+
+    footer {
+      background:rgb(88, 156, 88);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        background: #004a99;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 200px;
+        display: none;
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+        cursor: pointer;
+      }
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+    }
+    #neo{
+  border: 4px solid black;
+  max-width: 90%;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 6px;
+  padding: auto;
+  margin-top: 20px;
+  box-shadow: 5px 5px 5px;
+}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo"><h2>Automated Plant disease detection And Treatement System</h2>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav>
+      <ul id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li>
+          <a href="#diseases">Diseases</a>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+<div style="margin-top: 80px;" id="Home">
+  <marquee style="color: black;padding: 10px;font-size: 18px;margin-top: 40px;background-color: #c5f7b0;">
+     Welcome to the Automated Plant Detection and Treatment System 🌱 Welcome to the Automated Plant Detection and Treatment System 🌱Welcome to the Automated Plant Detection and Treatment System 🌱
+  </marquee>
+</div><br>
+<center><a href="{{ url_for('next_page') }}" class="predict-btn">🌿 Predict Disease</a></center>
+</center>
+
+<br>
+
+<section class="full-screen-slider" style="margin-top: 0px; margin-bottom: 0px;">
+  <marquee>
+  <div class="slick-slider">
+    <div><img src="https://wallpapercrafter.com/desktop/17067-leaves-green-plant-mango-4k.jpg" >
+    <img src="https://wallpapercrafter.com/desktop/17067-leaves-green-plant-mango-4k.jpg" >
+  <img src="https://wallpapercrafter.com/desktop/17067-leaves-green-plant-mango-4k.jpg" ></div>
+  </div>
+  </marquee>
+</section>
+
+  <section class="about" id="about" style="margin-top: 0px;">
+  
+  <div class="about-content">
+    <div class="about-image">
+      <img src="https://i.pinimg.com/736x/7b/c9/af/7bc9af786ade98ed15e254c87f50ed40.jpg" alt="Plant Image">
+    </div>
+    <div class="about-text">
+      <h2 style="margin-bottom: 30px;">About The Website</h2>
+      <p>
+       This website is designed to help farmers, gardeners, and plant enthusiasts quickly and accurately identify plant diseases using cutting-edge Artificial Intelligence.
+Our mission is to bridge the gap between agriculture and technology by providing a simple platform that allows users to:
+<ul style="margin-left: 40px;font-size: large;">
+<li>📷 Upload images of infected leaves or capture them via webcam</li>
+<li>🤖 Get instant disease predictions using AI</li>
+<li>🩺 Access tailored treatment advice and preventive measures</li>
+</ul>
+      </p>
+    </div>
+  </div>
+</section>
+<br>
+ <marquee>⚠️ Detect Plant Diseases Early - Protect Your Crops!</marquee>
+<div class="slideshow-container">
+  <div class="mySlides fade">
+  <section id="diseases" class="diseases">
+    <h2> <center>Diseases</center></h2>
+    <div class="disease-slider" >
+      <div class="disease-slide" id="neo">
+        <img src="https://i.pinimg.com/736x/b6/a0/b8/b6a0b8a12a1a103801134798007c297f.jpg" alt="Disease 1">
+        <div class="slide-text" >
+          <h3>Powdery Mildew</h3>
+          <p>This fungal disease causes white powdery spots on leaves and stems. It thrives in dry, warm conditions. Treatment includes neem oil or sulfur-based sprays.</p>
+        </div>
+      </div>
+<br>
+      <div class="disease-slide" id="neo">
+        <img src="https://i.pinimg.com/736x/f5/f3/15/f5f3159135b0baddca836fd8606f5b70.jpg" alt="Disease 2">
+        <div class="slide-text" >
+          <h3>Bacterial Canker</h3>
+          <p>Leaf spot appears as brown or black patches on foliage. It's usually caused by bacteria or fungi. Remove affected leaves and apply a suitable fungicide.</p>
+        </div>
+      </div>
+<br>
+      <div class="disease-slide" id="neo">
+        <img src="https://i.pinimg.com/736x/42/6e/3a/426e3ac933a5d030ac378a0d9015779b.jpg" alt="Disease 3">
+        <div class="slide-text">
+          <h3>Anthracnose</h3>
+          <p>Blight causes sudden yellowing, browning, and dying of leaves or stems. It spreads rapidly and needs copper-based fungicides for control.</p>
+        </div>
+      </div>
+    </div> 
+    
+  </section>
+
+
+  <section class="contact" id="contact" >
+  <h2><center>Contact Us</center></h2><br>
+  <form action="/send-email/" method="POST" class="contact-form">
+    <label for="email"><b>Email Address:</b></label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+    <label for="phone"><b>Phone Number:</b></label>
+    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+    <label for="message"><b>Description:</b></label>
+    <textarea id="message" name="message" placeholder="Enter your message" rows="6" required></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+
+  <footer>
+    <p>&copy; 2025 Plant detection  All rights reserved.</p>
+  </footer>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+
+<script>
+  function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('active');
+    }
+    <button onclick="openPage()" class="predict-btn">🌿 Predict Disease</button>
+  function openPage() {
+    window.location.href = "test.html";
+ // Open in same tab
+  }
+ 
+  $(document).ready(function(){
+    $('.slick-slider').slick({
+      autoplay: true,
+      dots: true,
+      arrows: false,
+      infinite: true,
+      speed: 500,
+      fade: true,
+      cssEase: 'linear'
+    });
+  });
+
+
+  (function() {
+    emailjs.init("your_public_key"); // Replace with your public key
+  })();
+
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    emailjs.sendForm('your_service_id', 'your_template_id', this)
+      .then(function() {
+        alert('Message sent successfully!');
+      }, function(error) {
+        alert('Failed to send message. Error: ' + JSON.stringify(error));
+      });
+  });
+  $(document).ready(function(){
+    $('.slick-slider').slick({
+      dots: true,
+      infinite: true,
+      speed: 500,
+      autoplay: true,
+      autoplaySpeed: 3000,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: true
+    });
+  });
+  
+</script>
+</body>
+</html>
